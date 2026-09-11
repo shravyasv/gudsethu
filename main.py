@@ -62,6 +62,7 @@ def login():
     for user in users:
         if user["username"] == username and user["password"] == password:
             print("Login successful ✅")
+
             print(f"Welcome, {user['first_name']}!")
             return user
 
@@ -80,18 +81,19 @@ def dashboard(user):
                 print("Invalid category ❌")
 
         elif choice == "2":
-            cat, area, type = input("Category(PG/Hostel/Rental/Hotel):"), input("Area: "),input("Type(Boys👦 / Girls👧): ")
+            cat, area, type, rent = input("Category(PG/Hostel/Rental/Hotel):"), input("Area: "),input("Type(Boys👦 / Girls👧): "),input("Rent:")
 
             found = [x for x in details
                  if x.get("Category","").lower() == cat.lower()
                  and x.get("Area", "").lower() == area.lower()
-                 and x.get("Type","").lower() == type.lower()]
+                 and x.get("Type","").lower() == type.lower()
+                 and str(x.get("Rent","")) == str(rent)]
 
             if found:
                 for x in found:
                     print("\nAvailable details🫠\n")
                     print("\n".join(f"{k}: {v}" for k, v in x.items()
-                                if k!="Category" and k!="Area" and k!="Type"))
+                                if k!="Category" and k!="Area" and k!="Type" and k!="Rent"))
             else:
                 print("Details are not available 👎")
 
