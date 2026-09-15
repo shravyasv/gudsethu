@@ -6,12 +6,12 @@ from gudsethu.gudsethu import fields,details,add,delete_details
 def register():
     print("\n--- CREATE ACCOUNT ---")
 
-    first_name = input("First Name: ")
-    last_name = input("Last Name: ")
-    username = input("Username: ")
-    password = input("Password: ")
-    phone = input("Phone Number: ")
-    email = input("Email ID: ")
+    first_name = input("First Name: ").strip()
+    last_name = input("Last Name: ").strip()
+    username = input("Username: ").strip()
+    password = input("Password: ").strip()
+    phone = input("Phone Number: ").strip()
+    email = input("Email ID: ").strip()
 
     verification_code = random.randint(100000, 999999)
 
@@ -33,9 +33,11 @@ def register():
         try:
             with open("users.json", "r") as file:
                 users = json.load(file)
-        except FileNotFoundError:
+        except (FileNotFoundError, json.JSONDecodeError):
             users = []
-
+        if any(u["username"] == username for u in users):
+            print("Username already exists ❌")
+            return
         users.append(user)
 
         with open("users.json", "w") as file:
@@ -49,13 +51,14 @@ def register():
 def login():
     print("\n--- LOGIN ---")
 
-    username = input("Username: ")
-    password = input("Password: ")
+    username = input("Username: ").strip()
+    password = input("Password: ").strip()
 
     try:
-        with open("users.json", "r") as file:
-            users = json.load(file)
-    except FileNotFoundError:
+          with open("users.json", "r") as file:
+            content = file.read().strip()
+            users = json.loads(content) if content else []
+    except (FileNotFoundError, json.JSONDecodeError):
         print("No accounts found. Please register first.")
         return None
 
@@ -73,7 +76,7 @@ def dashboard(user):
         choice = input("\n1.Member\n2.Visitor\n3.Delete\n4.Exit\nChoice: ")
 
         if choice == "1":
-            cat = input("Category (PG/Hostel/Rental/Hotel): ")
+            cat = input("Category (PG/Hostel/Rental/Hotel): ").strip()
             if cat in fields:
                 add(cat)
                 print("Added ✅")
@@ -81,19 +84,19 @@ def dashboard(user):
                 print("Invalid category ❌")
 
         elif choice == "2":
-            cat, area, type, rent = input("Category(PG/Hostel/Rental/Hotel):"), input("Area: "),input("Type(Boys👦 / Girls👧): "),input("Rent:")
+            cat, area, type, stay_fees__rent__price = input("Category(PG/Hostel/Rental/Hotel):").strip(), input("Area: ").strip(),input("Type(Boys👦 / Girls👧)").strip(),input("Rent/Stay_fees/Price:").strip()
 
             found = [x for x in details
                  if x.get("Category","").lower() == cat.lower()
                  and x.get("Area", "").lower() == area.lower()
                  and x.get("Type","").lower() == type.lower()
-                 and str(x.get("Rent","")) == str(rent)]
+                 or str(x.get("Rent/Stay_fees/Price:")) == str(stay_fees__rent__price)]
 
             if found:
                 for x in found:
                     print("\nAvailable details🫠\n")
-                    print("\n".join(f"{k}: {v}" for k, v in x.items()
-                                if k!="Category" and k!="Area" and k!="Type" and k!="Rent"))
+                    print("\n".join(f"{k}:{v}" for k, v in x.items()
+                                if k!="Category" and k!="Area" and k!="Type" and k!="Rent/Stay_fees/Price:"))
             else:
                 print("Details are not available 👎")
 
