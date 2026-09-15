@@ -26,7 +26,7 @@ def delete_details():
 
     print("\n--- Stored Details ---")
     for i, x in enumerate(details, start=1):
-        print(f"{i}. {x.get('Category')} - {x.get('Name')} - {x.get('Area')} - {x.get('Type')}")
+        print(f"{i}. {x.get('Category')} - {x.get('Name')} - {x.get('Area')} - {x.get('Type')} - {x.get('Rent')}")
 
     try:
         num = int(input("\nEnter the number to delete: "))
