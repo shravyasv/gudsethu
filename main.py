@@ -84,41 +84,45 @@ def dashboard(user):
                 print("Invalid category ❌")
 
         elif choice == "2":
-            cat = input("Category (PG/Hostel/Rental/Hotel): ").strip()
-            area = input("Area: ").strip()
-            type = input("Type (Boys / Girls): ").strip()
-            price = input("Rent/Stay_fees/Price: ").strip()
+             cat = input("Category (PG/Hostel/Rental/Hotel): ").strip()
+             area = input("Area: ").strip()
+             type = input("Type (Boys/Girls): ").strip()
+             price = input("Rent/Stay Fees/Price: ").strip()
 
-            found = []
+             found = []
 
-            for x in details:
-                if (
-                    x.get("Category", "").lower() == cat.lower()
-                    and x.get("Area", "").lower() == area.lower()
-                    and x.get("Type", "").lower() == type.lower()
-                ):
-                    if cat.lower() == "pg" or cat.lower() == "rental":
-                        if str(x.get("Rent", "")) == price:
-                            found.append(x)
+             for x in details:
+              category_match = x.get("Category", "").strip().lower() == cat.lower()
+              area_match = x.get("Area", "").strip().lower() == area.lower()
+              type_match = x.get("Type", "").strip().lower() == type.lower()
 
-                    elif cat.lower() == "hostel":
-                        if str(x.get("Stay Fees", "")) == price:
-                            found.append(x)
+              if category_match and area_match and type_match:
 
-                    elif cat.lower() == "hotel":
-                        if str(x.get("Price", "")) == price:
-                            found.append(x)
+                if cat.lower() in ["pg", "rental"]:
+                    price_match = str(x.get("Rent", "")).strip() == price
 
-            if found:
-                for x in found:
-                    print("\nAvailable details 🫠\n")
-                    print("\n".join(
-                    f"{k}: {v}"
-                    for k, v in x.items()
-                        if k not in ["Category", "Area", "Type"]
-                    ))
-            else:
-                print("Details are not available 👎")
+                elif cat.lower() == "hostel":
+                    price_match = str(x.get("Stay Fees", "")).strip() == price
+
+                elif cat.lower() == "hotel":
+                    price_match = str(x.get("Price", "")).strip() == price
+
+                else:
+                    price_match = False
+
+                if price_match:
+                   found.append(x)
+
+             if found:
+                 for x in found:
+                     print("\nAvailable details \n")
+                     print("\n".join(
+                     f"{k}: {v}"
+                     for k, v in x.items()
+                     if k not in ["Category", "Area", "Type"]
+            ))
+             else:
+                 print("Details are not available ")
 
         elif choice == "3":
             delete_details()
