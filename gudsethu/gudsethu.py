@@ -1,5 +1,4 @@
 import json
-print("--- 💐 WELCOME TO gudsethu 🌉🛖 ---")
 try:
     with open("details.json","r")as file:
         details = json.load(file)
