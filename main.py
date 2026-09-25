@@ -84,19 +84,39 @@ def dashboard(user):
                 print("Invalid category ❌")
 
         elif choice == "2":
-            cat, area, type, stay_fees__rent__price = input("Category(PG/Hostel/Rental/Hotel):").strip(), input("Area: ").strip(),input("Type(Boys👦 / Girls👧)").strip(),input("Rent/Stay_fees/Price:").strip()
+            cat = input("Category (PG/Hostel/Rental/Hotel): ").strip()
+            area = input("Area: ").strip()
+            type = input("Type (Boys / Girls): ").strip()
+            price = input("Rent/Stay_fees/Price: ").strip()
 
-            found = [x for x in details
-                 if x.get("Category","").lower() == cat.lower()
-                 and x.get("Area", "").lower() == area.lower()
-                 and x.get("Type","").lower() == type.lower()
-                 or str(x.get("Rent/Stay_fees/Price:")) == str(stay_fees__rent__price)]
+            found = []
+
+            for x in details:
+                if (
+                    x.get("Category", "").lower() == cat.lower()
+                    and x.get("Area", "").lower() == area.lower()
+                    and x.get("Type", "").lower() == type.lower()
+                ):
+                    if cat.lower() == "pg" or cat.lower() == "rental":
+                        if str(x.get("Rent", "")) == price:
+                            found.append(x)
+
+                    elif cat.lower() == "hostel":
+                        if str(x.get("Stay Fees", "")) == price:
+                            found.append(x)
+
+                    elif cat.lower() == "hotel":
+                        if str(x.get("Price", "")) == price:
+                            found.append(x)
 
             if found:
                 for x in found:
-                    print("\nAvailable details🫠\n")
-                    print("\n".join(f"{k}:{v}" for k, v in x.items()
-                                if k!="Category" and k!="Area" and k!="Type" and k!="Rent/Stay_fees/Price:"))
+                    print("\nAvailable details 🫠\n")
+                    print("\n".join(
+                    f"{k}: {v}"
+                    for k, v in x.items()
+                        if k not in ["Category", "Area", "Type"]
+                    ))
             else:
                 print("Details are not available 👎")
 
@@ -122,7 +142,6 @@ while True:
         user=login()
         if user:
             dashboard(user)
-    
 
     elif choice == "3":
         print("Logged out successfully✔️")
