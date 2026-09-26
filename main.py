@@ -110,8 +110,8 @@ def dashboard(user):
                 else:
                     price_match = False
 
-                if price_match:
-                   found.append(x)
+                if price_match: 
+                 found.append(x)
 
              if found:
                  for x in found:
