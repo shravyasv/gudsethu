@@ -13,5 +13,18 @@
         "Address": "wert",
         "Area": "K",
         "Contact": "3456789"
+    },
+    {
+        "Category": "PG",
+        "Name": "v",
+        "Type": "Girls",
+        "Rent": "7",
+        "Deposit": "10",
+        "Timings": "no",
+        "Food": "no",
+        "Owner": "h",
+        "Address": "dfres",
+        "Area": "kenjar",
+        "Contact": "65789432"
     }
 ]
