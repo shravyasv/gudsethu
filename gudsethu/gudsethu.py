@@ -6,10 +6,10 @@ except FileNotFoundError:
     details = []
 
 fields = {
-    "PG": ["Name","Type", "Rent", "Deposit", "Timings", "Food", "Owner", "Address", "Area", "Contact"],
-    "Hostel": ["Name","Type", "Stay Fees", "Mess Fees", "Deposit", "Timings", "Food", "Owner", "Warden", "Address", "Area", "Contact"],
-    "Rental": ["Name","Type", "Rent", "Deposit", "Timings", "Owner", "Address", "Area", "Contact"],
-    "Hotel": ["Name","Type", "Price", "Advance", "Address", "Area", "Contact"]
+    "PG": ["Name","Type", "Rent", "Deposit", "Timings", "Food", "Owner", "Address", "Area", "Contact","Photos"],
+    "Hostel": ["Name","Type", "Stay Fees", "Mess Fees", "Deposit", "Timings", "Food", "Owner", "Warden", "Address", "Area", "Contact","Photos"],
+    "Rental": ["Name","Type", "Rent", "Deposit", "Timings", "Owner", "Address", "Area", "Contact","Photos"],
+    "Hotel": ["Name","Type", "Price", "Advance", "Address", "Area", "Contact","Photos"]
 }
 
 def add(category):
