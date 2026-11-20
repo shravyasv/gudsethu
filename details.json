@@ -26,5 +26,18 @@
         "Address": "dfres",
         "Area": "kenjar",
         "Contact": "65789432"
+    },
+    {
+        "Address": "Mangalore",
+        "Area": "Kenjar",
+        "Category": "PG",
+        "Contact": "9876543210",
+        "Deposit": 10000,
+        "Food": "Yes",
+        "Name": "New PG",
+        "Owner": "Shravya",
+        "Rent": 7000,
+        "Timings": "No",
+        "Type": "Girls"
     }
 ]
