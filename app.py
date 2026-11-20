@@ -54,9 +54,11 @@ def update_property(property_id):
 
     with open("details.json", "r") as file:
         properties = json.load(file)
-
+    print("Properties loaded:", properties)
+    print("Requested ID:", property_id)
     for property in properties:
-        if property.get("id") == property_id:
+        print("Checking ID:", property.get("ID"))
+        if property.get("ID") == property_id:
             property.update(data)
 
             with open("details.json", "w") as file:
